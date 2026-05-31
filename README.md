@@ -9,7 +9,7 @@ Aegis Data Wiper is an advanced, military-grade secure data shredding utility op
 
 You do not need to install Python to use this software. 
 
-1. Download the latest standalone Windows Executable (`Aegis_Data_Wiper.exe`) from the Releases page.
+1. Download the latest standalone Windows Executable (`Aegis_Data_Wiper.exe`).
 2. Double-click `Aegis_Data_Wiper.exe` to run the application. No installation is required.
 
 ---
