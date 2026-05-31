@@ -9,7 +9,7 @@ Aegis Data Wiper is an advanced, military-grade secure data shredding utility op
 
 You do not need to install Python to use this software. 
 
-1. Download the latest standalone Windows Executable (`Aegis_Data_Wiper.exe`) from the [Releases](https://github.com/YOUR_GITHUB_USERNAME/YOUR_REPOSITORY/releases) page. *(Make sure to upload the `.exe` found in the `dist/` folder to your GitHub releases)*
+1. Download the latest standalone Windows Executable (`Aegis_Data_Wiper.exe`) from the Releases page.
 2. Double-click `Aegis_Data_Wiper.exe` to run the application. No installation is required.
 
 ---
@@ -32,17 +32,9 @@ To guarantee data destruction on flash media, the most reliable strategy availab
 4. **Result:** Once the drive is full, all unallocated physical flash cells have been demonstrably overwritten, destroying remnants of deleted files.
 
 ### Performance vs. Security Trade-offs
-
-| Method | Passes | Description | Performance | Security (HDD) | Security (Flash/SSD) |
-| :--- | :---: | :--- | :--- | :--- | :--- |
-| **Single-Pass Zero Fill** | 1 | Writes all 0x00s to free space. | Fast | Very High | High (Triggers TRIM/Garbage Collection on Modern SSDs) |
-| **Random Data Pass** | 1 | Writes cryptographically random bytes. | Moderate | Very High | Very High (Prevents firmware compression tricks) |
-| **DoD 5220.22-M (3-Pass)**| 3 | Writes 0x00, 0xFF, then Random Data. | Slow | Extreme | Irrelevant / Harmful (Wears out flash quickly, no added security over 1 random pass) |
-
-*Recommendation for Flash Storage:* A single **Random Data Pass** is optimal. It defeats internal deduplication/compression engines on modern SSDs while minimizing excessive wear compared to multi-pass standards.
+A single **Random Data Pass** is used for optimal security on flash storage. This method writes cryptographically random bytes, which is optimal for flash media as it defeats internal deduplication/compression engines on modern SSDs while minimizing excessive wear compared to multi-pass standards like DoD 5220.22-M, which are largely irrelevant or even harmful to flash storage lifespan without added security benefits.
 
 ---
-
 ## 2. THE INTERACTIVE GUI IMPLEMENTATION
 
 ### Key Features
@@ -51,34 +43,3 @@ To guarantee data destruction on flash media, the most reliable strategy availab
 - **OS-Level Buffering Bypass:** Uses `os.fsync` to ensure data is written directly to the physical storage cells, bypassing RAM cache.
 - **Graceful Disk Full Handling:** Catches `OSError` (No space left on device) to safely finalize the free-space wiping process.
 - **Metadata Obfuscation:** Renames files randomly before final deletion to destroy MFT/filesystem name records.
-
----
-
-## 🛠 Building from Source
-
-If you prefer to review the code and compile the executable yourself:
-
-### Prerequisites
-- Python 3.8+
-- PyInstaller
-
-### Steps
-1. Clone the repository:
-```bash
-git clone https://github.com/YOUR_GITHUB_USERNAME/YOUR_REPOSITORY.git
-cd YOUR_REPOSITORY
-```
-2. Install the compilation requirement:
-```bash
-pip install pyinstaller
-```
-3. Build the standalone executable:
-```bash
-pyinstaller --noconsole --onefile --name "Aegis_Data_Wiper" data_wiper.py
-```
-The compiled executable will be located in the `dist/` directory.
-
-### Running via Python Script directly
-```bash
-python data_wiper.py
-```"# Aegis-Data-Wiper" 
